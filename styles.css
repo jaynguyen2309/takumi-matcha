@@ -347,25 +347,68 @@ h1, h2, h3 {
   pointer-events: none;
   user-select: none;
 }
-.deco--leaf-hero {
-  width: clamp(90px, 14vw, 190px);
-  left: -3%; bottom: 6%;
-  opacity: 0.5;
-  transform: rotate(-14deg);
-}
 .deco--whisk-hands {
   width: clamp(200px, 30vw, 420px);
   right: -6%; top: -4%;
   opacity: 0.5;
 }
-.deco--leaves {
-  width: clamp(160px, 24vw, 340px);
-  left: -7%; bottom: 4%;
-  opacity: 0.35;
-}
 @media (max-width: 780px) {
-  .deco--whisk-hands, .deco--leaves { display: none; }
-  .deco--leaf-hero { width: 84px; opacity: 0.35; }
+  .deco--whisk-hands { display: none; }
+}
+
+/* ---------- section photo grounds ---------- */
+/* Every band keeps its own background colour; the photo rides above that colour
+   at low opacity and below the content. Photos are used uncut — their own
+   backdrop (cream marble, dark green) is part of the wash, so light photos go
+   on the paper sections and dark ones on the green bands.
+   Stacking inside a section: colour -> accent gradient -> .sec-bg -> .shell. */
+.sec-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  /* Sized off the file's own width rather than cover: cover blew a 1400px photo
+     up to whatever the band measured, which is where the softness came from.
+     --bgw caps it near native pixels and the band colour fills the rest. */
+  --bgw: 820px;
+  --bgpos: center;
+  background-position: var(--bgpos);
+  background-size: min(100%, var(--bgw)) auto;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  user-select: none;
+  /* The mask is sized and placed like the photo, not like the band, so the
+     feather always lands on the photo's own edges — otherwise a shrunk photo
+     ends mid-band and shows a slab edge. */
+  mask-image: radial-gradient(ellipse closest-side, #000 42%, rgba(0, 0, 0, 0.4) 76%, transparent 100%);
+  mask-size: min(100%, var(--bgw)) auto;
+  mask-position: var(--bgpos);
+  mask-repeat: no-repeat;
+  -webkit-mask-image: radial-gradient(ellipse closest-side, #000 42%, rgba(0, 0, 0, 0.4) 76%, transparent 100%);
+  -webkit-mask-size: min(100%, var(--bgw)) auto;
+  -webkit-mask-position: var(--bgpos);
+  -webkit-mask-repeat: no-repeat;
+}
+
+/* The light sections leave .shell static, so it needs its own layer to sit
+   above the photo. The dark ones already do this a few rules down. */
+.section > .shell { position: relative; z-index: 1; }
+
+.sec-bg--hero      { background-image: url("assets/bg-powder-arc.webp"); --bgpos: 18% 55%; --bgw: 700px; opacity: 0.16; }
+.sec-bg--statement { background-image: url("assets/bg-whisk-drip.webp"); --bgpos: 72% 40%; --bgw: 880px; opacity: 0.24; }
+.sec-bg--benefits  { background-image: url("assets/bg-bowl-powder.webp"); --bgpos: 85% 50%; --bgw: 760px; opacity: 0.15; }
+.sec-bg--journey   { background-image: url("assets/bg-whisk-powder.webp"); --bgpos: 50% 60%; --bgw: 900px; opacity: 0.15; }
+.sec-bg--serving   { background-image: url("assets/bg-powder-streak.webp"); --bgpos: 30% 45%; --bgw: 900px; opacity: 0.16; }
+.sec-bg--offer     { background-image: url("assets/bg-foam-whisk.webp"); --bgpos: 60% 50%; --bgw: 820px; opacity: 0.18; }
+/* Dark-grounded photo on a cream band: kept lowest of the set so the wash reads
+   as a soft vignette instead of dropping the section's lightness. */
+.sec-bg--how       { background-image: url("assets/bg-sift.webp"); --bgpos: 75% 50%; --bgw: 820px; opacity: 0.11; }
+.sec-bg--order     { background-image: url("assets/bg-tea-sprig.webp"); --bgpos: 25% 50%; --bgw: 880px; opacity: 0.22; }
+
+/* A phone band is narrow enough that the photo fills it edge to edge, so the
+   wash competes with the copy — ease it back. */
+@media (max-width: 780px) {
+  .sec-bg { opacity: 0.1; }
+  .sec-bg--how { opacity: 0.07; }
 }
 
 /* ---------- hero ---------- */
@@ -421,11 +464,12 @@ h1, h2, h3 {
 .hero__title-line { display: block; white-space: nowrap; }
 .hero__title-sub {
   display: block;
-  font-size: 0.5em;
+  font-size: 0.66em;
   font-weight: 500;
   letter-spacing: 0.14em;
   color: var(--olive);
-  margin-top: 0.4em;
+  /* em-based, so the gap tracks the larger size rather than growing with it */
+  margin-top: 0.3em;
 }
 
 /* Divider between the title block and the supporting copy. */
@@ -1016,8 +1060,8 @@ h1, h2, h3 {
   position: relative;
   display: grid; place-items: center;
   padding-bottom: 3%;
-  /* keeps the z-index:-1 powder behind the pack shot but still above the
-     section background, which would otherwise paint over it */
+  /* own stacking context, so the powder's z-index only competes with the pack
+     shot beside it and not with anything else on the section */
   isolation: isolate;
 }
 .pack__img {
@@ -1026,7 +1070,9 @@ h1, h2, h3 {
 }
 .pack__powder {
   position: absolute;
-  z-index: -1;
+  /* In front of the bag: the mound reads as powder heaped against its base
+     rather than a halo behind it. */
+  z-index: 1;
   bottom: 0; right: -4%;
   width: 62%;
   opacity: 0.95;
@@ -1281,6 +1327,7 @@ h1, h2, h3 {
   .site-header, .nav, .deco, .hero__glow { display: none !important; }
   body { background: #fff; color: #000; }
   .section--dark, .statement, .order { background: #fff !important; color: #000 !important; }
+  .sec-bg, .why__bg { display: none !important; }
   .section--dark h2, .section--dark h3, .statement__line, .order__copy h2 { color: #000 !important; }
   .js .reveal { opacity: 1 !important; transform: none !important; }
 }
