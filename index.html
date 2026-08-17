@@ -50,7 +50,7 @@
         <li><a href="#serving">Serving Ideas</a></li>
         <li><a href="#how">How to Mix</a></li>
       </ul>
-      <a class="btn btn--primary nav__cta" href="#order">Enquire Now</a>
+      <a class="btn btn--primary nav__cta" href="#order">Get launching price</a>
     </nav>
 
     <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav" aria-label="Menu">
@@ -65,40 +65,68 @@
   <!-- ============================== HERO ============================== -->
   <section class="hero" id="top">
     <img class="deco deco--leaf-hero" src="assets/leaf-sprig.webp" alt="" aria-hidden="true">
-    <img class="deco deco--whisk-hero" src="assets/whisk.webp" alt="" aria-hidden="true">
 
     <div class="shell hero__inner">
       <div class="hero__lede reveal">
-        <p class="kicker">Majors Group Presents</p>
         <p class="hero__brand">Rubicone<sup>&reg;</sup></p>
-        <p class="hero__grade">Ceremonial</p>
-        <h1 class="hero__title">Takumi Matcha <span>Soft Serve</span></h1>
-        <p class="hero__sub">Authentic ceremonial matcha from Kagoshima, Japan</p>
+        <h1 class="hero__title">
+          <span class="hero__title-line">Ceremonial Takumi</span>
+          <span class="hero__title-line">Matcha</span>
+          <span class="hero__title-sub">Soft Serve</span>
+        </h1>
+        <span class="hero__rule" aria-hidden="true"></span>
+        <p class="hero__sub">
+          Crafted into a premium soft serve with authentic flavour, vibrant colour and smooth umami.
+        </p>
+
+        <!-- Three-part origin line: read as one claim, separated by dots. -->
+        <ul class="hero__origin" role="list">
+          <li>Japanese Matcha</li>
+          <li>Italian Expertise</li>
+          <li>Made in Australia</li>
+        </ul>
       </div>
 
       <div class="hero__cta reveal">
         <div class="hero__actions">
-          <a class="btn btn--primary btn--lg" href="#order">Enquire Now</a>
+          <a class="btn btn--primary btn--lg" href="#order">Get launching price</a>
           <a class="btn btn--ghost btn--lg" href="#serving">See serving ideas</a>
         </div>
 
         <ul class="hero__stats" role="list">
           <li><strong>1.5<small>kg</small></strong><span>Net weight</span></li>
-          <li><strong>5<small>L</small></strong><span>Finished mix</span></li>
+          <li><strong><small class="hero__stats-pre">Approx.</small>5<small>L</small></strong><span>Finished mix</span></li>
           <li><strong>1<small>st</small></strong><span>Harvest tencha</span></li>
         </ul>
       </div>
 
       <div class="hero__media reveal">
         <span class="hero__glow" aria-hidden="true"></span>
-        <img class="hero__product" src="assets/hero-softserve.webp"
-             alt="Ceremonial matcha soft serve swirl in a black Japanese bowl"
-             width="1200" height="900" fetchpriority="high">
-        <span class="stamp stamp--premium" aria-hidden="true">
-          <span>Premium</span><em></em><span>Quality</span>
-        </span>
-        <span class="stamp stamp--kagoshima">Kagoshima<em>Japan</em></span>
-        <span class="kanji" aria-hidden="true">抹茶</span>
+        <!-- Frame tracks the product image itself, so the stamps and kanji stay
+             pinned to the bowl at every viewport instead of drifting with the
+             wider media column. -->
+        <div class="hero__frame">
+          <!-- Still life arranged around the product: powder ground, bowl of
+               powder behind right, leaves and dosing spoon in front. Decorative. -->
+          <img class="prop prop--spread" src="assets/prop-spread.webp" alt="" aria-hidden="true"
+               width="1100" height="675" loading="lazy">
+          <img class="prop prop--bowl" src="assets/prop-bowl.webp" alt="" aria-hidden="true"
+               width="640" height="491" loading="lazy">
+          <img class="hero__product" src="assets/hero-softserve.webp"
+               alt="Ceremonial matcha soft serve swirl in a black Japanese bowl"
+               width="1200" height="900" fetchpriority="high">
+          <img class="prop prop--leaf" src="assets/prop-leaf.webp" alt="" aria-hidden="true"
+               width="620" height="509" loading="lazy">
+          <img class="prop prop--spoon" src="assets/prop-spoon.webp" alt="" aria-hidden="true"
+               width="760" height="377" loading="lazy">
+          <span class="stamp stamp--premium" aria-hidden="true">
+            <span>Premium</span>
+            <svg class="stamp__peak" viewBox="0 0 32 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 17.5h29L20.5 3 14.5 10.5 11.5 7z"/><path d="M17 11l2.3 3h4"/></svg>
+            <span>Quality</span>
+          </span>
+          <span class="stamp stamp--kagoshima">Kagoshima<em>Japan</em></span>
+          <span class="kanji" aria-hidden="true">抹茶</span>
+        </div>
       </div>
     </div>
   </section>
@@ -111,7 +139,7 @@
         <p class="statement__line">Great matcha is rare.</p>
       </div>
       <div class="statement__body reveal">
-        <p>Most soft serve uses standard matcha. <strong>We choose ceremonial grade Kagoshima.</strong></p>
+        <p>As Matcha becomes more popular, customers are becoming more particular about what great Matcha should taste like. <strong>We choose ceremonial grade Kagoshima.</strong></p>
         <p class="statement__tag">When matcha is the hero, quality is not optional.</p>
       </div>
     </div>
@@ -123,8 +151,8 @@
     <div class="shell">
       <header class="section__head reveal">
         <p class="eyebrow">Features &amp; Benefits</p>
-        <h2 class="section__title">Everything in one</h2>
-        <p class="section__sub">Sourced, formulated and manufactured for soft serve — not adapted to it.</p>
+        <h2 class="section__title">Premium Matcha. Made for Soft Serve.</h2>
+        <!-- <p class="section__sub">Made for soft serve.</p> -->
       </header>
 
       <ul class="cards" role="list">
@@ -179,7 +207,8 @@
     <div class="shell">
       <header class="section__head reveal">
         <p class="eyebrow">Our Journey</p>
-        <h2 class="section__title">Three worlds. One exceptional soft serve.</h2>
+        <h2 class="section__title">Three worlds.</h2>
+        <h2 class="section__title"> One amazing product.</h2>
       </header>
 
       <ol class="journey" role="list">
@@ -190,6 +219,7 @@
           </figure>
           <div class="journey__body">
             <h3>Kagoshima, Japan</h3>
+            <p class="journey__caption">Where the matcha begins</p>
             <p>We source our ceremonial grade matcha from Kagoshima, one of Japan's most respected tea-growing regions. Volcanic soil, clean water and an ideal climate produce vibrant leaves with rich umami and natural sweetness.</p>
           </div>
         </li>
@@ -200,6 +230,7 @@
           </figure>
           <div class="journey__body">
             <h3>Rubicone, Italy</h3>
+            <p class="journey__caption">Where expertise meets formulation</p>
             <p>Rubicone — the expert in gelato and soft serve ingredients — developed a premium recipe that balances authentic matcha flavour, colour and smooth texture for exceptional soft serve performance.</p>
           </div>
         </li>
@@ -209,7 +240,8 @@
             <figcaption class="journey__badge">03</figcaption>
           </figure>
           <div class="journey__body">
-            <h3>Australia</h3>
+            <h3>Majors Group, Australia</h3>
+            <p class="journey__caption">Where the products come together</p>
             <p>Proudly manufactured in Australia to ensure consistent quality, food safety and reliable supply for Australian businesses.</p>
           </div>
         </li>
@@ -231,8 +263,8 @@
           <li class="reveal">
             <span class="why__num" aria-hidden="true">01</span>
             <div>
-              <h3>Customers expect better</h3>
-              <p>Today's customer knows good matcha — and notices when it isn't.</p>
+              <h3>Customers know good matcha</h3>
+              <p>Matcha customers are becoming more knowledgeable and selective. Give them a flavour that meets their expectations.</p>
             </div>
           </li>
           <li class="reveal">
@@ -304,9 +336,9 @@
         <p class="statement__line">Get in before everyone else.</p>
       </div>
       <div class="statement__body reveal">
-        <p>Be one of the first venues to put Takumi Ceremonial Matcha on the menu and take
+        <p>Be one of the first venues to put Takumi Ceremonial Matcha Soft Serve on the menu and take
           <strong>15% off your first order</strong>.</p>
-        <a class="btn btn--light btn--lg promo__cta" href="#order">Enquire Now</a>
+        <a class="btn btn--light btn--lg promo__cta" href="#order">Get launching price</a>
         <p class="statement__tag">Limited early bird offer — while stocks last</p>
       </div>
     </div>
@@ -349,28 +381,35 @@
   <section class="order" id="order">
     <div class="shell order__inner">
       <div class="order__copy reveal">
-        <h2>Bring authentic Japanese matcha to your soft serve menu</h2>
+        <p class="order__kicker">Ready to put premium matcha to your menu?</p>
+        <h2>Bring authentic Japanese matcha to your cafe, dessert bar or venue</h2>
         <p>Talk to the Majors Group team about pricing, samples and delivery across Australia.</p>
+        <p class="order__offer"><strong>15% off on your first order.</strong> Limited launch offer.</p>
       </div>
       <div class="order__actions reveal">
-        <a class="contact-card" href="tel:1800625677">
-          <span class="contact-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 2 .7 2.9a2 2 0 01-.4 2.1L8.1 9.9a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.9.4 1.9.6 2.9.8a2 2 0 011.7 2z"/></svg>
-          </span>
-          <span class="contact-card__text"><small>Call us</small><strong>1800 625 677</strong></span>
-        </a>
-        <a class="contact-card" href="mailto:info@majorsgroup.au?subject=Takumi%20Ceremonial%20Matcha%20Soft%20Serve%20enquiry">
-          <span class="contact-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2.5"/><path d="M2.6 6.4L12 13l9.4-6.6"/></svg>
-          </span>
-          <span class="contact-card__text"><small>Enquire now</small><strong>info@majorsgroup.au</strong></span>
-        </a>
-        <a class="contact-card" href="https://majorsgroup.au" target="_blank" rel="noopener">
-          <span class="contact-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.9 3.1 2.9 15.9 0 19M12 2.5c-2.9 3.1-2.9 15.9 0 19"/></svg>
-          </span>
-          <span class="contact-card__text"><small>Visit</small><strong>majorsgroup.au</strong></span>
-        </a>
+        <!-- NOTE: no backend on this page, so the form hands off to the mail
+             client. Swap the action for a real endpoint (CRM / form service)
+             when one is available. -->
+        <form class="signup" action="mailto:info@majorsgroup.au?subject=Takumi%20Ceremonial%20Matcha%20enquiry"
+              method="post" enctype="text/plain">
+          <h3 class="signup__title">Stay in the loop</h3>
+          <p class="signup__hint">Leave your details and we'll be in touch with launch pricing.</p>
+
+          <p class="field">
+            <label for="fullName">Full name</label>
+            <input id="fullName" name="Full name" type="text" autocomplete="name" required>
+          </p>
+          <p class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="Email address" type="email" autocomplete="email" required>
+          </p>
+          <p class="field">
+            <label for="phone">Phone number</label>
+            <input id="phone" name="Phone number" type="tel" inputmode="tel" autocomplete="tel" required>
+          </p>
+
+          <button class="btn btn--light btn--lg signup__submit" type="submit">Send my details</button>
+        </form>
       </div>
     </div>
   </section>
@@ -383,6 +422,28 @@
     <a class="footer__home" href="https://majorsgroup.au" target="_blank" rel="noopener">
       <img src="assets/majors-logo.webp" alt="Majors Group — 35 years, a world of ice cream" class="footer__logo" width="320" height="118" loading="lazy">
     </a>
+
+    <ul class="footer__contact" role="list">
+      <li>
+        <a href="tel:1800625677" aria-label="Call Majors Group on 1800 625 677">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 2 .7 2.9a2 2 0 01-.4 2.1L8.1 9.9a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.9.4 1.9.6 2.9.8a2 2 0 011.7 2z"/></svg>
+          1800 625 677
+        </a>
+      </li>
+      <li>
+        <a href="mailto:info@majorsgroup.au?subject=Takumi%20Ceremonial%20Matcha%20Soft%20Serve%20enquiry" aria-label="Email info@majorsgroup.au">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2.5"/><path d="M2.6 6.4L12 13l9.4-6.6"/></svg>
+          info@majorsgroup.au
+        </a>
+      </li>
+      <li>
+        <a href="https://majorsgroup.au" target="_blank" rel="noopener" aria-label="Visit majorsgroup.au">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.9 3.1 2.9 15.9 0 19M12 2.5c-2.9 3.1-2.9 15.9 0 19"/></svg>
+          majorsgroup.au
+        </a>
+      </li>
+    </ul>
+
     <p class="footer__legal">
       &copy; <span id="year">2026</span> Majors Group. Rubicone<sup>&reg;</sup> Signature Takumi Ceremonial Matcha Soft Serve Mix.
       <span class="footer__note">Serving suggestions shown.</span>
