@@ -399,16 +399,12 @@ h1, h2, h3 {
 .sec-bg--journey   { background-image: url("assets/bg-whisk-powder.webp"); --bgpos: 50% 60%; --bgw: 900px; opacity: 0.15; }
 .sec-bg--serving   { background-image: url("assets/bg-powder-streak.webp"); --bgpos: 30% 45%; --bgw: 900px; opacity: 0.16; }
 .sec-bg--offer     { background-image: url("assets/bg-foam-whisk.webp"); --bgpos: 60% 50%; --bgw: 820px; opacity: 0.18; }
-/* Dark-grounded photo on a cream band: kept lowest of the set so the wash reads
-   as a soft vignette instead of dropping the section's lightness. */
-.sec-bg--how       { background-image: url("assets/bg-sift.webp"); --bgpos: 75% 50%; --bgw: 820px; opacity: 0.11; }
 .sec-bg--order     { background-image: url("assets/bg-tea-sprig.webp"); --bgpos: 25% 50%; --bgw: 880px; opacity: 0.22; }
 
 /* A phone band is narrow enough that the photo fills it edge to edge, so the
    wash competes with the copy — ease it back. */
 @media (max-width: 780px) {
   .sec-bg { opacity: 0.1; }
-  .sec-bg--how { opacity: 0.07; }
 }
 
 /* ---------- hero ---------- */
