@@ -827,16 +827,30 @@ h1, h2, h3 {
   transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease),
               background-color 0.35s var(--ease);
 }
-.card:hover {
+/* Every card is light at rest; green is the hover state. Colours transition
+   alongside the fill so the text does not jump ahead of the background. */
+.card:hover,
+.card:focus-within {
   transform: translateY(-4px);
-  background: #fff;
+  background: var(--forest-mid);
+  border-color: transparent;
   box-shadow: var(--shadow-md);
+}
+.card:hover h3,
+.card:focus-within h3 { color: var(--on-dark); }
+.card:hover p,
+.card:focus-within p { color: var(--on-dark-dim); }
+.card:hover .card__icon,
+.card:focus-within .card__icon {
+  background: var(--paper-lite);
+  color: var(--forest);
 }
 
 /* Filled disc rather than an outline ring, and it sets the card's accent. */
 .card__icon {
   display: grid; place-items: center;
   width: 48px; height: 48px;
+  transition: background-color 0.35s var(--ease), color 0.35s var(--ease);
   margin-bottom: clamp(1.6rem, 3.4vw, 2.4rem);
   border-radius: 50%;
   background: var(--matcha);
@@ -847,6 +861,7 @@ h1, h2, h3 {
 .card__icon svg { width: 24px; height: 24px; stroke-width: 2.4; }
 
 .card h3 {
+  transition: color 0.35s var(--ease);
   font-size: var(--step-1);
   font-family: var(--font-sans);
   font-weight: 600;
@@ -858,21 +873,7 @@ h1, h2, h3 {
   color: var(--ink-soft);
   font-size: var(--step--1);
   line-height: 1.7;
-}
-
-/* Lead card is filled, the way the reference anchors its row with one solid
-   panel; its icon disc inverts so the badge still reads against the fill. */
-.card--lead {
-  background: var(--forest-mid);
-  border-color: transparent;
-  box-shadow: var(--shadow-md);
-}
-.card--lead:hover { background: var(--forest-soft); }
-.card--lead h3 { color: var(--on-dark); }
-.card--lead p { color: var(--on-dark-dim); }
-.card--lead .card__icon {
-  background: var(--paper-lite);
-  color: var(--forest);
+  transition: color 0.35s var(--ease);
 }
 
 /* ---------- journey ---------- */
