@@ -157,6 +157,20 @@ h1, h2, h3 {
 }
 .section__head--light .section__sub { color: var(--on-dark-dim); }
 
+/* Title on the left, one action on the right. The head keeps its own max-width
+   so the CTA is pushed by the bar, not by a long heading. */
+.section__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: clamp(1.2rem, 3vw, 2.5rem);
+  margin-bottom: clamp(2.2rem, 5vw, 3.75rem);
+}
+.section__head--flush { margin-bottom: 0; }
+.section__bar-cta { flex: none; }
+.section__bar-cta svg { flex: none; }
+
 .eyebrow {
   margin: 0 0 0.6em;
   font-size: var(--step--1);
@@ -620,16 +634,15 @@ h1, h2, h3 {
   50%      { transform: translateY(-11px); }
 }
 
-/* 抹茶 runs vertically down the right side of the bowl */
-.kanji {
+/* 抹茶 over the Kagoshima stamp, stacked down the left of the bowl. One asset,
+   so the kanji and the stamp can never drift apart at odd viewports. */
+.hero__mark {
   position: absolute;
-  left: 1%; top: 12%;
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 14cqw, 4.5rem);
-  line-height: 0.9;
-  writing-mode: vertical-rl;
-  color: var(--forest);
-  opacity: 0.5;
+  left: 1%; top: 4%;
+  z-index: 5;
+  width: clamp(46px, 13cqw, 92px);
+  height: auto;
+  opacity: 0.85;
 }
 
 /* stamps */
@@ -653,29 +666,12 @@ h1, h2, h3 {
 }
 .stamp__peak {
   display: block;
-  width: clamp(18px, 5.5cqw, 30px); height: auto;
-  margin: 2px auto;
+  /* Bigger than the old inline SVG: the artwork carries finer ridge detail that
+     disappears below ~28px. */
+  width: clamp(26px, 7.5cqw, 42px); height: auto;
+  margin: 1px auto;
   opacity: 0.9;
 }
-
-.stamp--kagoshima {
-  top: 1%; left: 0%;
-  display: grid; gap: 1px;
-  padding: 0.45em 0.7em;
-  border: 1.5px solid var(--stamp-red);
-  border-radius: 4px;
-  color: var(--stamp-red);
-  background: rgba(244, 239, 231, 0.6);
-  font-size: clamp(0.52rem, 1.15vw, 0.66rem);
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  text-align: center;
-  transform: rotate(-4deg);
-}
-.stamp--kagoshima em { font-style: normal; }
-/* Hero copy of the tag scales with the bowl; the pack section keeps the vw size. */
-.hero__frame .stamp--kagoshima { font-size: clamp(0.52rem, 2.1cqw, 0.66rem); }
 
 @media (min-width: 860px) {
   .hero__inner {
@@ -808,17 +804,24 @@ h1, h2, h3 {
 .promo__cta { margin-top: 1.5em; }
 
 /* ---------- benefit cards ---------- */
+/* Six items, so three across rather than the four of a four-item row — four
+   would leave a two-card orphan row. */
 .cards {
   position: relative; z-index: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 265px), 1fr));
-  gap: clamp(1rem, 2.4vw, 1.6rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 255px), 1fr));
+  gap: clamp(0.9rem, 1.8vw, 1.35rem);
+}
+@media (min-width: 1000px) {
+  .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 .card {
-  padding: clamp(1.5rem, 3vw, 2.1rem);
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(13, 70, 18, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.4rem, 2.6vw, 1.8rem);
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(13, 70, 18, 0.08);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
   transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease),
@@ -826,27 +829,51 @@ h1, h2, h3 {
 }
 .card:hover {
   transform: translateY(-4px);
-  background: rgba(255, 255, 255, 0.85);
+  background: #fff;
   box-shadow: var(--shadow-md);
 }
+
+/* Filled disc rather than an outline ring, and it sets the card's accent. */
 .card__icon {
   display: grid; place-items: center;
-  width: 52px; height: 52px;
-  margin-bottom: 1.1rem;
-  border: 1px solid rgba(117, 131, 57, 0.45);
+  width: 48px; height: 48px;
+  margin-bottom: clamp(1.6rem, 3.4vw, 2.4rem);
   border-radius: 50%;
-  color: var(--olive);
+  background: var(--matcha);
+  color: #fff;
 }
-.card__icon svg { width: 26px; height: 26px; }
+/* Source icons are drawn on a 48px grid at 1.8; at half size the white stroke
+   on the green disc goes too thin, so CSS overrides the attribute. */
+.card__icon svg { width: 24px; height: 24px; stroke-width: 2.4; }
+
 .card h3 {
   font-size: var(--step-1);
   font-family: var(--font-sans);
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  margin-bottom: 0.55em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-bottom: 0.5em;
+  text-wrap: balance;
 }
-.card p { color: var(--ink-soft); font-size: var(--step--1); line-height: 1.7; }
+.card p {
+  color: var(--ink-soft);
+  font-size: var(--step--1);
+  line-height: 1.7;
+}
+
+/* Lead card is filled, the way the reference anchors its row with one solid
+   panel; its icon disc inverts so the badge still reads against the fill. */
+.card--lead {
+  background: var(--forest-mid);
+  border-color: transparent;
+  box-shadow: var(--shadow-md);
+}
+.card--lead:hover { background: var(--forest-soft); }
+.card--lead h3 { color: var(--on-dark); }
+.card--lead p { color: var(--on-dark-dim); }
+.card--lead .card__icon {
+  background: var(--paper-lite);
+  color: var(--forest);
+}
 
 /* ---------- journey ---------- */
 .journey {
@@ -925,62 +952,140 @@ h1, h2, h3 {
 }
 
 /* ---------- why ceremonial ---------- */
+/* Light section, like the rest of the page's cream bands. The product shot has
+   its background knocked out, so it reads better here than on a dark band. */
+#why { background: linear-gradient(180deg, var(--paper), var(--paper-lite)); }
+/* Tea-leaf texture, faint: enough to break up the flat cream without touching
+   body-copy contrast, so no scrim is needed over it. */
 .why__bg {
   position: absolute; inset: 0;
   background: url("assets/leaf-macro.jpg") center / cover no-repeat;
-  opacity: 0.6;
-  mask-image: linear-gradient(180deg, transparent, #000 45%, #000 70%, transparent);
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 45%, #000 70%, transparent);
-}
-/* Scrim over the leaf backdrop — without it the bright highlights in the photo
-   drop body-copy contrast below AA. Paints above .why__bg, below .shell (z:1). */
-#why::after {
-  content: "";
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(13, 70, 18, 0.35), rgba(13, 70, 18, 0.72));
+  opacity: 0.14;
+  mask-image: linear-gradient(180deg, transparent, #000 40%, #000 72%, transparent);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 40%, #000 72%, transparent);
   pointer-events: none;
 }
-.section--dark .shell { position: relative; z-index: 1; }
+#why .shell { position: relative; z-index: 1; }
 
-.why {
+/* ---------- the difference: hub and spoke ---------- */
+/* The product holds the middle and each note runs a hairline back to it. The
+   spokes are CSS, drawn from the note's inner edge, so they stay attached
+   however the copy rewraps. */
+.diff {
+  --pad: clamp(0.5rem, 1.5vw, 1.2rem);
+  position: relative;
   display: grid;
-  gap: clamp(2rem, 5vw, 3.5rem);
-  align-items: start;
+  justify-items: center;
+  padding: var(--pad);
+}
+.diff__hero {
+  position: relative; z-index: 1;
+  width: min(100%, 920px);
+  height: auto;
+  filter: drop-shadow(0 26px 34px rgba(13, 70, 18, 0.28));
 }
 
-.why__list { display: grid; gap: clamp(1.4rem, 3vw, 2.1rem); }
-.why__list li {
+.diff__notes {
+  position: relative; z-index: 2;
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: clamp(0.9rem, 2.2vw, 1.5rem);
-  align-items: start;
-  padding-bottom: clamp(1.4rem, 3vw, 2.1rem);
-  border-bottom: 1px solid rgba(238, 243, 230, 0.16);
+  gap: clamp(0.9rem, 2vw, 1.4rem);
+  width: 100%;
+  margin-top: clamp(1.4rem, 3vw, 2rem);
 }
-.why__list li:last-child { padding-bottom: 0; border-bottom: 0; }
-
-.why__num {
+.diff__note {
+  position: relative;
+  padding: clamp(1rem, 2.2vw, 1.25rem) clamp(1.1rem, 2.4vw, 1.4rem);
+  border: 1px solid rgba(13, 70, 18, 0.1);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-sm);
+}
+.diff__num {
+  display: block;
+  margin-bottom: 0.3em;
   font-family: var(--font-display);
-  font-size: var(--step-2);
-  line-height: 1;
-  color: var(--matcha-lite);
-  opacity: 0.75;
-}
-.why__list h3 {
   font-size: var(--step-1);
-  font-family: var(--font-sans);
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  margin-bottom: 0.4em;
+  line-height: 1;
+  color: var(--olive-text);
 }
-.why__list p { color: var(--on-dark-dim); font-size: var(--step--1); }
+.diff__note h3 {
+  font-size: var(--step-0);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.35em;
+  color: var(--forest);
+  text-wrap: balance;
+}
+.diff__note p {
+  color: var(--ink-soft);
+  font-size: var(--step--1);
+  line-height: 1.65;
+}
 
-/* The four points now own the full width, so they pair up rather than running
-   as one narrow column down a 1200px shell. */
-@media (min-width: 760px) {
-  .why__list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(2rem, 5vw, 4rem); }
-  /* With two per row, the last row's items should not keep a bottom rule. */
-  .why__list li:nth-last-child(-n + 2) { padding-bottom: 0; border-bottom: 0; }
+@media (min-width: 620px) {
+  .diff__notes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Wide enough for the spokes: notes take the four corners, the product holds
+   the middle. Below this the layout falls back to the stacked grid above. */
+@media (min-width: 1020px) {
+  /* The hero is the only in-flow child; the notes are absolute. Centring it
+     puts the hub where the four spokes actually point. */
+  .diff { display: flex; align-items: center; justify-content: center; min-height: 620px; }
+  .diff__hero { width: min(80%, 920px); }
+
+  .diff__notes {
+    position: absolute; inset: var(--pad);
+    /* width:auto matters: the stacked rule sets width:100%, which over-constrains
+       the box so the right inset is ignored and the right-hand notes hang out. */
+    width: auto;
+    display: block;
+    margin: 0;
+    pointer-events: none;
+  }
+  .diff__note {
+    position: absolute;
+    width: clamp(208px, 20vw, 262px);
+    pointer-events: auto;
+    /* The bigger hub reaches under the lower notes; a deeper shadow makes them
+       read as floating over the shot rather than colliding with it. */
+    box-shadow: var(--shadow-md);
+  }
+  .diff__note--tl { left: 0;  top: 0; }
+  .diff__note--tr { right: 0; top: 0; }
+  .diff__note--bl { left: 0;  bottom: 0; }
+  .diff__note--br { right: 0; bottom: 0; }
+
+  /* Spoke: a hairline from the note's inner edge, and the dot it starts at. */
+  .diff__note::before,
+  .diff__note::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+  .diff__note::before {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--olive);
+    box-shadow: 0 0 0 4px rgba(117, 131, 57, 0.16);
+  }
+  .diff__note::after {
+    width: clamp(38px, 4vw, 74px); height: 1px;
+    background: linear-gradient(90deg, var(--olive), rgba(117, 131, 57, 0));
+  }
+
+  .diff__note--tl::before { right: -4px; bottom: 22%; }
+  .diff__note--tl::after  { left: 100%;  bottom: 22%; transform-origin: left center;  transform: rotate(24deg); }
+
+  .diff__note--tr::before { left: -4px;  bottom: 22%; }
+  .diff__note--tr::after  { right: 100%; bottom: 22%; transform-origin: right center; transform: rotate(-24deg); }
+
+  .diff__note--bl::before { right: -4px; top: 22%; }
+  .diff__note--bl::after  { left: 100%;  top: 22%; transform-origin: left center;  transform: rotate(-24deg); }
+
+  .diff__note--br::before { left: -4px;  top: 22%; }
+  .diff__note--br::after  { right: 100%; top: 22%; transform-origin: right center; transform: rotate(24deg); }
 }
 
 /* ---------- serving gallery ---------- */
@@ -1073,7 +1178,17 @@ h1, h2, h3 {
   width: 62%;
   opacity: 0.95;
 }
-.pack__stamp { top: 6%; right: 2%; bottom: auto; left: auto; }
+/* Same combined mark as the hero, stacked down the right of the bag. */
+.pack__mark {
+  position: absolute;
+  z-index: 2;
+  /* Sits on the bag's plain upper panel, above the label: the bag is only ~20px
+     narrower than this cell, so anything flush right straddles its edge. */
+  top: 5%; right: 15%;
+  width: clamp(40px, 11%, 62px);
+  height: auto;
+  opacity: 0.85;
+}
 
 @media (min-width: 880px) {
   .how { grid-template-columns: 1.15fr 0.85fr; }
@@ -1221,6 +1336,65 @@ h1, h2, h3 {
 
 .signup__submit { width: 100%; margin-top: 0.5rem; }
 
+/* ---------- consent, collection notice, submit status ---------- */
+/* Australian Privacy Act (APP 5) wants the collection notice at the point of
+   collection, and the Spam Act wants consent to be an explicit act — hence a
+   required checkbox rather than a pre-ticked one or implied consent. */
+.consent {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.6rem;
+  margin: 0.2rem 0 0.9rem;
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+.consent input {
+  width: 17px; height: 17px;
+  margin-top: 0.15em;
+  accent-color: var(--olive);
+  cursor: pointer;
+}
+.consent label { cursor: pointer; }
+.consent a { text-decoration: underline; text-underline-offset: 2px; }
+
+.collection-notice {
+  margin: 0 0 1rem;
+  font-size: 0.7rem;
+  line-height: 1.6;
+  opacity: 0.75;
+}
+.collection-notice a { text-decoration: underline; }
+
+/* Visually hidden, but not display:none — bots fill what they can parse. */
+.honeypot {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.form-status {
+  margin: 0.7rem 0 0;
+  font-size: var(--step--1);
+  line-height: 1.5;
+  min-height: 1.5em;
+}
+.form-status:empty { display: none; }
+.form-status[data-state="error"] { color: #e0a59d; }
+
+/* On the cream modal the inherited on-dark colours would wash out. */
+.signup .consent, .signup .collection-notice { color: var(--on-dark-dim); }
+.signup .consent a, .signup .collection-notice a { color: var(--matcha-lite); }
+.signup .form-status { color: var(--matcha-lite); }
+.promodal .consent, .promodal .collection-notice { color: var(--ink-soft); }
+.promodal .consent a, .promodal .collection-notice a { color: var(--olive-text); }
+.promodal .form-status { color: var(--olive-text); }
+.promodal .form-status[data-state="error"] { color: var(--stamp-red); }
+
+.is-sending { opacity: 0.6; pointer-events: none; }
+
 @media (min-width: 900px) {
   .order__inner { grid-template-columns: 1fr 0.9fr; }
 }
@@ -1323,7 +1497,168 @@ h1, h2, h3 {
   .site-header, .nav, .deco, .hero__glow { display: none !important; }
   body { background: #fff; color: #000; }
   .section--dark, .statement, .order { background: #fff !important; color: #000 !important; }
-  .sec-bg, .why__bg { display: none !important; }
+  .sec-bg { display: none !important; }
   .section--dark h2, .section--dark h3, .statement__line, .order__copy h2 { color: #000 !important; }
   .js .reveal { opacity: 1 !important; transform: none !important; }
 }
+/* ---------- first-visit promo modal ---------- */
+/* Cream panel. The shared .field styles are built for the page's green bands,
+   so the form inputs are re-skinned for a light ground further down. */
+.promodal {
+  width: min(92vw, 440px);
+  max-height: min(88vh, 720px);
+  padding: clamp(1.6rem, 4vw, 2.4rem);
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: var(--paper-lite);
+  color: var(--ink);
+  box-shadow: 0 40px 90px -30px rgba(13, 70, 18, 0.5);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.promodal::backdrop {
+  background: rgba(9, 33, 12, 0.62);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+/* Pale powder wash, light enough not to fight the copy on a cream ground. */
+.promodal::before {
+  content: "";
+  position: absolute; inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: url("assets/bg-powder-arc.webp") 75% 40% / cover no-repeat;
+  opacity: 0.3;
+  pointer-events: none;
+}
+.promodal > * { position: relative; }
+
+.promodal__x {
+  position: absolute; top: 0.75rem; right: 0.75rem;
+  z-index: 1;
+  display: grid; place-items: center;
+  width: 36px; height: 36px;
+  border: 0; border-radius: 50%;
+  background: rgba(13, 70, 18, 0.08);
+  color: var(--forest);
+  cursor: pointer;
+  transition: background-color 0.25s var(--ease);
+}
+.promodal__x:hover { background: rgba(13, 70, 18, 0.16); }
+
+.promodal__eyebrow {
+  margin: 0 0 0.5em;
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--olive-text);
+}
+.promodal__title {
+  margin: 0 0 0.4em;
+  padding-right: 2.5rem;
+  font-size: var(--step-3);
+  color: var(--forest);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+.promodal__lede {
+  margin: 0 0 1.4rem;
+  color: var(--ink-soft);
+  font-size: var(--step-0);
+}
+
+.promodal__opts { display: grid; gap: 0.6rem; }
+
+/* The three reasons read as choices; "No thanks" deliberately does not compete
+   with them — no fill, no border, just text. */
+.promodal__opt {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.95em 1.2em;
+  border: 1px solid rgba(13, 70, 18, 0.22);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.72);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  font-weight: 400;
+  color: var(--forest);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.25s var(--ease), border-color 0.25s var(--ease),
+              transform 0.25s var(--ease);
+}
+.promodal__opt svg { flex: none; opacity: 0.6; transition: transform 0.25s var(--ease); }
+.promodal__opt:hover {
+  background: #fff;
+  border-color: var(--forest);
+  transform: translateY(-1px);
+}
+.promodal__opt:hover svg { transform: translateX(3px); }
+
+.promodal__skip {
+  justify-self: center;
+  margin-top: 0.4rem;
+  padding: 0.5em 0.8em;
+  border: 0;
+  background: none;
+  font-family: var(--font-sans);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(77, 91, 70, 0.4);
+}
+.promodal__skip:hover { color: var(--forest); text-decoration-color: currentColor; }
+
+/* Re-skin of the shared field styles for the cream panel. */
+.promodal .field label { color: var(--olive-text); }
+.promodal .field input {
+  border-color: rgba(13, 70, 18, 0.2);
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--ink);
+}
+.promodal .field input:hover { border-color: rgba(13, 70, 18, 0.38); }
+.promodal .field input:focus {
+  outline-color: var(--olive);
+  background: #fff;
+}
+.promodal .field input:user-invalid { border-color: #b8392c; }
+
+.promodal__submit { width: 100%; margin-top: 0.5rem; }
+
+/* Phones take the whole screen: at this width a centred card leaves slivers of
+   dimmed page around it and the options crowd the edges. dvh, not vh, so the
+   panel is not cut off by mobile browser chrome. */
+@media (max-width: 600px) {
+  .promodal {
+    width: 100vw; max-width: 100vw;
+    height: 100dvh; max-height: 100dvh;
+    padding: clamp(3.5rem, 12vw, 4.5rem) 1.4rem 2rem;
+    border-radius: 0;
+  }
+  /* Content sits in the middle of the tall panel rather than at the top. The
+     [open] guard matters: a bare `display: flex` here beats the UA's
+     `dialog:not([open]) { display: none }`, and the closed dialog then renders
+     in normal flow over the page. */
+  .promodal[open] {
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .promodal__x { top: 1rem; right: 1rem; }
+  .promodal__title { font-size: var(--step-4); padding-right: 0; }
+  .promodal__opt { padding: 1.1em 1.2em; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .promodal[open] { animation: promo-in 0.35s var(--ease) both; }
+  .promodal[open]::backdrop { animation: promo-fade 0.35s var(--ease) both; }
+}
+@keyframes promo-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.97); }
+}
+@keyframes promo-fade { from { opacity: 0; } }
+

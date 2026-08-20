@@ -44,6 +44,39 @@ comparison were both dropped at the client's request.
 Typos present in the source artwork ("CREMONIAL", "INSPRATION", "possiblity",
 "SOCIAL MEDIAL APPEAL", "competivie") have been corrected here.
 
+## Lead capture
+
+Both forms — `#order`'s "Stay in the loop" and the first-visit promo modal — post
+to a Google Sheet through an Apps Script web app. `google-apps-script.gs` in this
+repo is the server side.
+
+Google side, once:
+
+1. Create a spreadsheet. Rename the first tab **Leads** and give it this header row:
+   `Timestamp | Source | Name | Email | Phone | Reason | Consent | Page`
+2. In that sheet: **Extensions → Apps Script**. Delete the stub, paste
+   `google-apps-script.gs`, save.
+3. Set `NOTIFY_EMAIL` if you want an email per lead. `SHARED_TOKEN` must match
+   `LEAD_TOKEN` in `script.js`.
+4. **Deploy → New deployment → Web app**, with:
+   - *Execute as*: **Me**
+   - *Who has access*: **Anyone** (required — visitors are not signed in)
+5. Authorise when prompted (**Advanced → Go to project → Allow**). The warning is
+   because the script is unverified and yours; it needs Sheets and, if you set
+   `NOTIFY_EMAIL`, Gmail send.
+6. Copy the deployment's `/exec` URL into `LEAD_ENDPOINT` at the top of
+   `script.js`.
+
+While `LEAD_ENDPOINT` is empty the forms fall back to their `mailto:` action, so
+the page keeps working before the endpoint exists.
+
+Editing the script later needs **Deploy → Manage deployments → edit → New
+version**; saving alone does not update the live URL.
+
+Consent is a required, unticked checkbox and the collection notice sits next to
+it, per Privacy Act APP 5 and the Spam Act's consent requirement. Point the
+privacy policy link at the real page before publishing.
+
 ## Responsive behaviour
 
 Fluid `clamp()` type and spacing scale continuously, so there are no dead zones
