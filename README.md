@@ -74,8 +74,8 @@ Editing the script later needs **Deploy → Manage deployments → edit → New
 version**; saving alone does not update the live URL.
 
 Consent is a required, unticked checkbox and the collection notice sits next to
-it, per Privacy Act APP 5 and the Spam Act's consent requirement. Point the
-privacy policy link at the real page before publishing.
+it, per Privacy Act APP 5 and the Spam Act's consent requirement. Both consent
+labels link to majorsgroup.com.au/web-site-terms-of-use/.
 
 ## Responsive behaviour
 

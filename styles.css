@@ -359,22 +359,6 @@ h1, h2, h3 {
   .nav__cta { padding: 0.8em 1.25em; letter-spacing: 0.07em; white-space: nowrap; }
 }
 
-/* ---------- decorative art ---------- */
-.deco {
-  position: absolute;
-  z-index: 0;
-  pointer-events: none;
-  user-select: none;
-}
-.deco--whisk-hands {
-  width: clamp(200px, 30vw, 420px);
-  right: -6%; top: -4%;
-  opacity: 0.5;
-}
-@media (max-width: 780px) {
-  .deco--whisk-hands { display: none; }
-}
-
 /* ---------- section photo grounds ---------- */
 /* Every band keeps its own background colour; the photo rides above that colour
    at low opacity and below the content. Photos are used uncut — their own
@@ -456,15 +440,17 @@ h1, h2, h3 {
 .hero__media { grid-area: media; }
 .hero__cta   { grid-area: cta; }
 
+/* Brand lockup, not type: the wrapper only carries the rhythm, the logo carries
+   the size. Floored at 148px — below that the "gelato & pastry est. 1959" line
+   in the artwork stops resolving. */
 .hero__brand {
   margin: 0;
-  font-family: var(--font-display);
-  font-size: var(--step-2);
-  font-weight: 600;
-  color: var(--forest);
-  line-height: 1;
+  line-height: 0;
 }
-.hero__brand sup { font-size: 0.42em; vertical-align: super; font-weight: 400; }
+.hero__brand img {
+  width: clamp(148px, 16vw, 224px);
+  height: auto;
+}
 
 /* "Ceremonial Takumi" is the longest line in the block, so the scale is tuned to
    hold that line — not the shorter "Matcha" — inside the lede column. */
@@ -995,6 +981,9 @@ h1, h2, h3 {
   gap: clamp(1.75rem, 4vw, 2.75rem);
 }
 .why__head { max-width: 34ch; }
+/* .btn is inline-flex, so it takes its own line under the heading; the margin is
+   all that is needed to set it off. */
+.why__cta { margin-top: clamp(1.2rem, 2.5vw, 1.8rem); }
 
 .why__cards {
   display: grid;
@@ -1167,6 +1156,9 @@ h1, h2, h3 {
   /* own stacking context, so the powder's z-index only competes with the pack
      shot beside it and not with anything else on the section */
   isolation: isolate;
+  /* Query container, like .hero__frame: it lets the stamp reuse the hero's
+     cqw sizing so it scales with the bag rather than with the viewport. */
+  container-type: inline-size;
 }
 .pack__img {
   width: min(100%, 380px);
@@ -1181,16 +1173,12 @@ h1, h2, h3 {
   width: 62%;
   opacity: 0.95;
 }
-/* Same combined mark as the hero, stacked down the right of the bag. */
-.pack__mark {
-  position: absolute;
-  z-index: 2;
+/* Same stamp as the hero. Only the placement is local — the size, border and
+   type all come from .stamp--premium, which this rule follows in source order. */
+.pack__stamp {
   /* Sits on the bag's plain upper panel, above the label: the bag is only ~20px
      narrower than this cell, so anything flush right straddles its edge. */
   top: 5%; right: 15%;
-  width: clamp(40px, 11%, 62px);
-  height: auto;
-  opacity: 0.85;
 }
 
 @media (min-width: 880px) {
@@ -1497,7 +1485,7 @@ h1, h2, h3 {
 }
 
 @media print {
-  .site-header, .nav, .deco, .hero__glow { display: none !important; }
+  .site-header, .nav, .hero__glow { display: none !important; }
   body { background: #fff; color: #000; }
   .section--dark, .statement, .order { background: #fff !important; color: #000 !important; }
   .sec-bg { display: none !important; }
