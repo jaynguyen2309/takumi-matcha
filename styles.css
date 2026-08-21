@@ -29,11 +29,8 @@
   --on-dark-dim: #bccdb0;
 
   /* type */
-  /* One family across the page. The display token keeps its own name so the
-     display role stays greppable — and so a second face can come back by
-     changing this line alone — but it resolves to the same stack. */
+  --font-display: "Playfair Display", "Iowan Old Style", Georgia, serif;
   --font-sans: "Jost", "Avenir Next", "Segoe UI", system-ui, sans-serif;
-  --font-display: var(--font-sans);
 
   --step--1: clamp(0.82rem, 0.79rem + 0.15vw, 0.9rem);
   --step-0:  clamp(1rem, 0.96rem + 0.2vw, 1.09rem);
@@ -90,12 +87,10 @@ a { color: inherit; text-decoration: none; }
 h1, h2, h3 {
   margin: 0;
   font-family: var(--font-display);
-  /* 500, not 600: at display sizes Jost's 600 reads as UI-bold. The tighter
-     tracking is what a geometric sans needs to hold together in title case. */
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.1;
   color: var(--forest);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   text-wrap: balance;
 }
 
@@ -457,12 +452,10 @@ h1, h2, h3 {
 .hero__title {
   margin-top: 0.3em;
   font-size: clamp(2rem, 0.4rem + 3.35vw, 3.7rem);
-  /* Light and slightly tracked out: this is where a Futura-lineage sans earns
-     its keep at display size. Bold uppercase Jost reads as an app header. */
-  font-weight: 400;
-  line-height: 1.04;
+  font-weight: 700;
+  line-height: 1.02;
   text-transform: uppercase;
-  letter-spacing: 0.005em;
+  letter-spacing: -0.015em;
 }
 .hero__title-line { display: block; white-space: nowrap; }
 .hero__title-sub {
@@ -720,11 +713,8 @@ h1, h2, h3 {
   margin: 0;
   font-family: var(--font-display);
   font-size: var(--step-3);
-  /* Matches the heading weight: these two lines read as a heading, and 600 in
-     Jost sits noticeably heavier than the h2s around them. */
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.15;
-  letter-spacing: -0.01em;
 }
 .statement__line--muted { color: var(--on-dark-dim); opacity: 0.8; }
 
@@ -785,7 +775,7 @@ h1, h2, h3 {
 }
 .promo__num {
   font-size: var(--step-5);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.02em;
 }
 .promo__word {
@@ -918,9 +908,8 @@ h1, h2, h3 {
 }
 .journey__body p { color: var(--ink-soft); font-size: var(--step--1); line-height: 1.75; }
 
-/* Caption carries the place's role in the story. With one family it is the olive
-   and the step up in size that keep it reading as a subheading rather than as a
-   first line of body copy. */
+/* Caption carries the place's role in the story; display serif so it reads as a
+   subheading rather than a first line of body copy. */
 .journey__body .journey__caption {
   margin-bottom: 0.85em;
   font-family: var(--font-display);
@@ -1152,16 +1141,22 @@ h1, h2, h3 {
 .pack {
   position: relative;
   display: grid; place-items: center;
+  /* The box tracks the bag rather than the column it sits in. Everything placed
+     against it — the powder, the stamp — is then a share of the artwork instead
+     of a share of the cell, so the stamp keeps the same relationship to the
+     bag's edge at every width instead of drifting inboard as the column grows. */
+  width: min(100%, 380px);
+  justify-self: center;
   padding-bottom: 3%;
   /* own stacking context, so the powder's z-index only competes with the pack
      shot beside it and not with anything else on the section */
   isolation: isolate;
-  /* Query container, like .hero__frame: it lets the stamp reuse the hero's
-     cqw sizing so it scales with the bag rather than with the viewport. */
+  /* Query container, like .hero__frame: it lets the stamp size off the bag
+     rather than off the viewport. */
   container-type: inline-size;
 }
 .pack__img {
-  width: min(100%, 380px);
+  width: 100%;
   filter: drop-shadow(0 30px 40px rgba(13, 70, 18, 0.22));
 }
 .pack__powder {
@@ -1173,13 +1168,18 @@ h1, h2, h3 {
   width: 62%;
   opacity: 0.95;
 }
-/* Same stamp as the hero. Only the placement is local — the size, border and
-   type all come from .stamp--premium, which this rule follows in source order. */
+/* Same stamp as the hero, bigger and pushed out to the corner so it breaks the
+   bag's right edge. The border, fill and type still come from .stamp--premium,
+   which this rule follows in source order; only the scale and placement are
+   local. Every size stays proportional to the hero's (font and peak are 10% and
+   40% of the diameter) so the two stamps read as one mark at two sizes. */
 .pack__stamp {
-  /* Sits on the bag's plain upper panel, above the label: the bag is only ~20px
-     narrower than this cell, so anything flush right straddles its edge. */
-  top: 5%; right: 15%;
+  /* Negative inset: the mark is meant to break the bag's right edge. */
+  top: 4%; right: -3%;
+  width: clamp(74px, 29cqw, 122px);
+  font-size: clamp(0.48rem, 2.9cqw, 0.76rem);
 }
+.pack__stamp .stamp__peak { width: clamp(30px, 11.5cqw, 50px); }
 
 @media (min-width: 880px) {
   .how { grid-template-columns: 1.15fr 0.85fr; }
