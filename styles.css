@@ -1186,17 +1186,16 @@ h1, h2, h3 {
 .pack__stamp .stamp__peak { width: clamp(30px, 11.5cqw, 50px); }
 
 /* The hero's origin tag, cropped out of the combined kanji artwork so the
-   distressed edge is the same ink stamp rather than a CSS lookalike. Shares the
-   circle's width and right edge, one diameter below it, so the two read as a
-   single stack. Only the frame and letters are opaque — no plate behind them. */
+   distressed edge is the same ink stamp rather than a CSS lookalike. Only the
+   frame and letters are opaque — no plate behind them. */
 .pack__origin {
   position: absolute;
   z-index: 2;
+  /* Opposite corner to the circle, on the same line: the label's top-left is the
+     one clear stretch of the bag at this height, and the two marks balance
+     across it. Breaking the left edge mirrors what the circle does on the right. */
   top: calc(4% + var(--stamp-d) + 0.9rem);
-  /* Pushed further off the edge than the circle, which is what keeps it clear of
-     the label's "CODE N500" block — the plain panel above the label is too short
-     to hold both marks, so the tag has to sit at the corner instead. */
-  right: -8%;
+  left: -8%;
   width: var(--tag-w);
   height: auto;
   /* Off-square, like a stamp that was actually pressed on: it has to cross the
