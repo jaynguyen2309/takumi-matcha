@@ -188,7 +188,7 @@
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         if (!form.reportValidity()) return;
-
+                                                                                                                                                                                 
         var data = {
           token: LEAD_TOKEN,
           source: form.getAttribute('data-source') || '',

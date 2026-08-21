@@ -258,44 +258,48 @@
   </section>
 
   <!-- ============================== WHY CEREMONIAL ============================== -->
-  <section class="section" id="why">
+  <!-- Full-width dark band: heading holds the left rail, the four reasons run as
+       one row of tiles on the right. The leaf photo sits behind the whole band and
+       each tile carries its own photo the same way — set per card with --card-img
+       so one rule covers all four. -->
+  <section class="section section--dark why" id="why">
     <div class="why__bg" aria-hidden="true"></div>
-    <div class="shell">
-      <header class="section__head reveal">
+    <div class="shell why__inner">
+      <header class="section__head why__head reveal">
         <p class="eyebrow">Why Choose Ceremonial Matcha</p>
         <h2 class="section__title">The difference? You can taste it.<span>Your customers will too.</span></h2>
       </header>
 
-      <!-- Hub and spoke: the product sits in the middle and each note runs a
-           hairline back to it. The spokes are CSS, drawn from each note's inner
-           edge, so they stay attached however the copy wraps. -->
-      <div class="diff">
-        <img class="diff__hero" src="assets/why-hero.webp"
-             alt="Takumi Matcha soft serve in a branded cup, surrounded by tea leaves, a bamboo whisk and bowls of ceremonial matcha powder"
-             width="1400" height="726" loading="lazy">
-        <ul class="diff__notes" role="list">
-          <li class="diff__note diff__note--tl reveal">
-            <span class="diff__num" aria-hidden="true">01</span>
+      <ul class="why__cards" role="list">
+        <li class="why__card reveal" style="--card-img: url('assets/tea-leaves.webp')">
+          <span class="why__num" aria-hidden="true">01</span>
+          <div class="why__card-body">
             <h3>Customers know good matcha</h3>
             <p>Matcha customers are becoming more knowledgeable and selective. Give them a flavour that meets their expectations.</p>
-          </li>
-          <li class="diff__note diff__note--tr reveal">
-            <span class="diff__num" aria-hidden="true">02</span>
+          </div>
+        </li>
+        <li class="why__card reveal" style="--card-img: url('assets/serve-cone.jpg')">
+          <span class="why__num" aria-hidden="true">02</span>
+          <div class="why__card-body">
             <h3>Premium Experience = Repeat Visits</h3>
             <p>Great matcha creates loyal customers who come back for it by name.</p>
-          </li>
-          <li class="diff__note diff__note--bl reveal">
-            <span class="diff__num" aria-hidden="true">03</span>
+          </div>
+        </li>
+        <li class="why__card reveal" style="--card-img: url('assets/powder.webp')">
+          <span class="why__num" aria-hidden="true">03</span>
+          <div class="why__card-body">
             <h3>Premium Ingredients = Premium Pricing</h3>
             <p>Higher perceived value. Healthier margin on every serve.</p>
-          </li>
-          <li class="diff__note diff__note--br reveal">
-            <span class="diff__num" aria-hidden="true">04</span>
+          </div>
+        </li>
+        <li class="why__card reveal" style="--card-img: url('assets/serve-sundae.jpg')">
+          <span class="why__num" aria-hidden="true">04</span>
+          <div class="why__card-body">
             <h3>Stand out in a mature market</h3>
             <p>Quality is your competitive edge when everyone has matcha on the menu.</p>
-          </li>
-        </ul>
-      </div>
+          </div>
+        </li>
+      </ul>
     </div>
   </section>
 
