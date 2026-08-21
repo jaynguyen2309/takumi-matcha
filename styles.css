@@ -1191,16 +1191,15 @@ h1, h2, h3 {
 .pack__origin {
   position: absolute;
   z-index: 2;
-  /* Opposite corner to the circle, on the same line: the label's top-left is the
-     one clear stretch of the bag at this height, and the two marks balance
-     across it. Breaking the left edge mirrors what the circle does on the right. */
-  top: calc(4% + var(--stamp-d) + 0.9rem);
-  left: -8%;
+  /* Opposite corner to the circle and level with it, on the bag's plain panel
+     above the label. The inset is only -2%: the bag fills the shell on a phone,
+     so anything deeper than the gutter (~18px at 390px) gets clipped by the
+     body's overflow-x rather than hanging over the background. */
+  top: 9%;
+  left: -2%;
   width: var(--tag-w);
   height: auto;
-  /* Off-square, like a stamp that was actually pressed on: it has to cross the
-     label's corner (the bag's plain panel is too short to hold both marks), and
-     the tilt is what makes that read as intentional rather than as a collision. */
+  /* Off-square, like a stamp that was actually pressed on. */
   transform: rotate(-6deg);
 }
 
