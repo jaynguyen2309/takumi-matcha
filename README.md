@@ -114,9 +114,14 @@ width without a breakpoint.
   transitions — that is an explicit OS-level user request, so the float is
   suppressed only for people who have asked for less motion.
 - A print stylesheet flattens the dark sections for paper.
-- Body copy is Jost, display type is Playfair Display, both from Google Fonts
-  with local serif/sans fallbacks. To go fully offline, self-host the two
-  families and drop the `fonts.googleapis.com` links.
+- Jost is the only typeface, from Google Fonts, with a local sans fallback
+  stack. Display and body both use it: `--font-display` is an alias of
+  `--font-sans`, kept as a separate token so the display role stays greppable
+  and a second face can be reintroduced by editing that one line. Being a
+  Futura-lineage geometric sans, it wants less weight and tighter tracking at
+  display size than a serif does — hence 400-500 on the headings rather than
+  600-700. To go fully offline, self-host Jost and drop the
+  `fonts.googleapis.com` links.
 - Alpha-channel images (`hero-softserve`, `pack`, `powder`, leaves, whisk,
   logo) are WebP; flat photography is progressive JPEG. Total `assets/` weight
   is about 1.4MB.
